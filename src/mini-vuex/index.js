@@ -1,10 +1,16 @@
-import { reactive, computed } from "vue";
+import { reactive, computed, watch } from "vue";
 
 export function createStore(options) {
   const store = {
     _state: reactive(options.state()),
     _mutations: options.mutations || {},
     _actions: options.actions || {},
+    _commit: false,
+    _withCommit(fn) {
+      this._commit = true;
+      fn();
+      this._commit = false;
+    },
   };
   function commit(type, payload) {
     // 获取type对应的mutation
@@ -15,7 +21,9 @@ export function createStore(options) {
     }
     // 指定上下⽂为Store实例
     // 传递state给mutation
-    entry(this.state, payload);
+    this._withCommit(() => {
+      entry(this.state, payload);
+    });
   }
   function dispatch(type, payload) {
     // 获取⽤户编写的type对应的action
@@ -69,6 +77,19 @@ export function createStore(options) {
       },
     });
   });
+
+  // strict模式
+  if (options.strict) {
+    watch(
+      store.state,
+      () => {
+        if (!store._commit) {
+          console.warn("please use commit to mutate state");
+        }
+      },
+      { deep: true, flush: "sync" }
+    );
+  }
 
   store.install = function (app) {
     // 注册$store

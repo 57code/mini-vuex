@@ -7,7 +7,7 @@ import HelloWorld from './components/HelloWorld.vue'
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <!-- <HelloWorld msg="Hello Vue 3 + Vite" /> -->
-  <p @click="$store.commit('add')">count: {{$store.state.count}}</p>
+  <p @click="$store.state.count++">count: {{$store.state.count}}</p>
   <p @click="$store.dispatch('add')">async: {{$store.state.count}}</p>
   <p>doubleCounter: {{$store.getters.doubleCounter}}</p>
 </template>
