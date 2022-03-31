@@ -1,13 +1,14 @@
 <script setup>
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
+// import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <!-- <HelloWorld msg="Hello Vue 3 + Vite" /> -->
-  <p @click="$store.state.count++">count: {{$store.state.count}}</p>
+  <h1>mini-vuex</h1>
+  <p @click="$store.commit('add')">count: {{$store.state.count}}</p>
   <p @click="$store.dispatch('add')">async: {{$store.state.count}}</p>
   <p>doubleCounter: {{$store.getters.doubleCounter}}</p>
 </template>

@@ -1,6 +1,7 @@
-import { createStore } from "../mini-vuex";
 // import { createStore } from "vuex";
+import { createStore } from "../mini-vuex";
 
+// 创建Store实例
 const store = createStore({
   strict: true,
   state() {
@@ -9,8 +10,10 @@ const store = createStore({
     };
   },
   mutations: {
+    // state从何而来？
     add(state) {
       state.count++;
+      // this.count++;
     },
   },
   getters: {
